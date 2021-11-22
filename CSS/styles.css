@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa');
+
+
+html, body{
+    background:#292929 url("../Assets/Black-Background.jpg") fixed top no-repeat;
+    padding: 0;
+    font-size: 30px;
+    margin: 1vw;
+}
+
+.main{
+    user-select: none;
+    max-width: min(85%, 30em);
+    margin: auto;
+}
+
+.heading{
+    padding: 0.6em;
+    letter-spacing: 5px;
+    text-align: center;
+    font-family: 'Roboto Condensed', sans-serif;
+    margin: auto;
+    color: white;
+    font-size: 70px;
+}
+
+
+.card{
+    font-family: 'Comfortaa', cursive;
+    width: 100%;
+    background-color: #212138;
+    color: #c7c7c7;
+    text-align: left;
+    border-radius: 8px;
+    font-size: 30px;
+    height: 1.5em;
+    padding: 0.5em;
+}
+
+.todoInp, .addBTN{
+    color: inherit;
+    font:inherit;
+    background: transparent;
+    display: inline-block;
+    height: 100%;
+}
+
+.todoInp{
+    width: calc(100% - 2em);
+    border: none;
+}
+
+.todoInp:focus{
+    outline: none;
+}
+
+.addBTN{
+    height: 1em;
+    width: 1em;
+    text-align: center;
+    padding: none;
+    border: 1px solid white;
+    border-radius: 50%;
+}
+
+.addBTN:hover{
+    background: #bdbdbd;
+    color: black;
+    outline: black;
+}
