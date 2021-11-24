@@ -4,17 +4,29 @@
         <title>ToDo It!</title>
         <link rel="stylesheet" href="CSS/styles.css">
         <script src="Scripts/main.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1"
     </head>
 
     <body>
         <div class="main">
         <div class="heading">TODO IT</div>
         
-        <div class="card">
-            <div class=".addBTN">
-                +
+        <div class="card add">
+            <div class="inp">
+                <div class="addBTN">
+                    +
+                </div>
+                <input type="text" class="todoInp" placeholder="Enter Todo...">
             </div>
-            <input type="text" class="todoInp" placeholder="Enter Todo...">
+        </div>
+
+        <div class="card todos">
+            <ul class="active">
+                <li><input type="checkbox" checked><div class="todo">Test TODO</div><div class="del">X</div></li><hr>
+            </ul>
+            <div class="clrall">
+                Clear All
+            </div>
         </div>
 
     </body>
