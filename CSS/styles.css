@@ -51,7 +51,7 @@ html, body{
 }
 
 
-.todoInp, .addBTN{
+.todoInp, .addBtn{
     display: inline-block;
     color: inherit;
     font:inherit;
@@ -71,7 +71,7 @@ html, body{
     outline: none;
 }
 
-.addBTN{
+.addBtn{
     display: inline-flex;
     height: 1em;
     width: 1em;
@@ -84,7 +84,7 @@ html, body{
 }
 
 
-.addBTN:hover{
+.addBtn:hover{
     background: #bdbdbd;
     color: black;
     outline-color: black;
@@ -129,7 +129,7 @@ li{
 }
 
 
-.inactive{
+.complete{
     text-decoration: line-through;
     color: gray;
 }
@@ -159,7 +159,7 @@ input[type="checkbox"]:checked{
     background: url("../assets/tick.svg");
 }
 
-.clrall{
+.clrAll{
     text-align:right;
     padding: 0;
     margin: 0;
@@ -169,7 +169,7 @@ input[type="checkbox"]:checked{
     padding-bottom: 0.5em;
 }
 
-.clrall:hover{
+.clrAll:hover{
     color: #bbb;
 }
 
@@ -182,4 +182,8 @@ input[type="checkbox"]:checked{
     background-color: rgba(33,33, 56, 1);
     color: gray;
     opacity: 100%;
+}
+
+.del:hover{
+    color: white;
 }
