@@ -1,59 +1,127 @@
 // HTML Elements
 const addBtn = document.querySelector(".addBtn");
-const addInp = document.querySelector(".todoInp");
-const todoACT = document.querySelector(".ULactive");
+const inpBx = document.querySelector(".todoInp");
+const todoAct = document.querySelector(".ULactive");
 const todoComp = document.querySelector(".ULcomp");
 const clrAll = document.querySelector(".clrAll");
 
-function toggle(chkbx){
-    
-}
+// custom method to insert element at top
+[todoAct, todoComp].forEach((item) => {
+    item.insertTop = function(child){
+        item.insertBefore(child, item.firstChild);
+    }
+});
 
-function addTodo(todo){
-    let todoSpan = document.createElement("span");
-    todoSpan.innerHTML = `<li><input type="checkbox"><div class="todo active">${todo}</div><div class="del">X</div></li><hr>`;
 
-    todoACT.insertBefore(todoSpan, todoACT.firstChild);
-    
+function addTodo(todo){ // Add todo to list
+    let span = document.createElement('span');
+    span.innerHTML = `<li><input type="checkbox" data-dashlane-rid="aadaa6d9c552dd35" data-form-type=""><div class="todo">${todo}</div><div class="del">X</div></li><hr>`;
+    todoAct.insertTop(span);
 
-    let delBtn = todoSpan.querySelector(".del");
-    let chkbx = todoSpan.querySelector("input");
+    let chkBx = span.querySelector("input");
+    let todoDiv = span.querySelector(".todo");
+    let delBtn = span.querySelector(".del");
 
-    delBtn.addEventListener('click', () => {
-        delBtn.parentElement.parentElement.remove();
-    });
-
-    chkbx.addEventListener('click', () => {
-        todo_li = chkbx.nextElementSibling;
-        if(chkbx.checked){
-            todo_li.classList.add("complete");
-            todoACT.removeChild(todoSpan);
-            todoComp.insertBefore(todoSpan, todoComp.firstChild);
+    chkBx.addEventListener("change", () => {
+        if(chkBx.checked){
+            complete(span);
+            remLocal(todo, 'active');
+            addLocal(todo, 'complete');
         } else {
-            todo_li.classList.remove("complete");
-            todoComp.removeChild(todoSpan);
-            todoACT.appendChild(todoSpan);
+            incomplete(span);
+            remLocal(todo, 'complete');
+            addLocal(todo, 'active');
         }
+        });
+
+    delBtn.addEventListener("click", () => {
+        span.parentElement.removeChild(span);
     })
-
 }
 
-function addTodo_frominp(){
-    todo = addInp.value;
-    if(todo.trim()){
+function addFrmInp(){
+    todo = inpBx.value.trim();
+    if(todo){
         addTodo(todo);
-        addInp.value = "";
+        inpBx.value = "";
     }
+
+    addLocal(todo, 'active');
 }
 
-addBtn.addEventListener('click', addTodo_frominp);
-addInp.addEventListener('keydown', (e) => {
-    if(e.key === "Enter") {
-        addTodo_frominp();
+function complete(span){
+    todoDiv = span.querySelector(".todo");
+    todoDiv.classList.add("complete");
+    todoAct.removeChild(span);
+    todoComp.insertTop(span);
+}
+
+function incomplete(span){
+    todoDiv = span.querySelector(".todo");
+    todoDiv.classList.remove("complete");
+    todoComp.removeChild(span);
+    todoAct.appendChild(span);
+}
+
+function addLocal(todo, list){
+    let todos = JSON.parse(localStorage.getItem(list));
+    todos.push(todo);
+
+    localStorage.setItem(list, JSON.stringify(todos));
+
+}
+
+function remLocal(todo, list){
+    let todos = JSON.parse(localStorage.getItem(list));
+    let index;
+
+    for(let i=0; i<todos.length; i++)
+        if(todos[i] === todo) {
+            index = i;
+            break;
+        }
+
+    todos.splice(index, 1);
+
+    localStorage.setItem(list, JSON.stringify(todos));
+
+
+}
+
+addBtn.addEventListener('click', () => {
+    addFrmInp();
+});
+
+inpBx.addEventListener('keydown', (e) => {
+    if(e.key === "Enter"){
+        addFrmInp();
     }
+});
+
+clrAll.addEventListener("click", () => {
+    todoAct.innerHTML = '';
+    todoComp.innerHTML = '';
+    localStorage.setItem('active', '[]');
+    localStorage.setItem('complete', '[]');
 })
 
-clrAll.addEventListener('click', () => {
-    todoACT.innerHTML = "";
-    todoComp.innerHTML = "";
+window.addEventListener('DOMContentLoaded', () => {
+
+    let active = localStorage.getItem('active') ? JSON.parse(localStorage.getItem('active')) : [];
+    let completed = localStorage.getItem('complete') ? JSON.parse(localStorage.getItem('complete')) : [];
+
+    if(!active.length) {
+        localStorage.setItem('active', JSON.stringify([]));
+    } if(!completed.length) {
+        localStorage.setItem('complete', JSON.stringify([]));
+    }
+
+    active.forEach((item) => {
+        addTodo(item);
+    });
+    completed.forEach((item) => {
+        addTodo(item);
+        todoAct.firstChild.querySelector('input').checked = true;
+        complete(todoAct.firstChild)
+    })
 });
